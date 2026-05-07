@@ -1,0 +1,66 @@
+/* TERMINAL GRID THEME - HEADER */
+
+.terminal-header-nav {
+  border-bottom: 1px solid #1C2333;
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  position: relative;
+}
+
+.terminal-logo-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #E6EDF3;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.terminal-nav-link {
+  font-size: 14px;
+  color: #7D8590;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  padding: 0.5rem 0;
+}
+
+.terminal-nav-link:hover, .terminal-nav-link.active {
+  color: #00D4FF;
+}
+
+.terminal-btn-outline {
+  background-color: transparent;
+  color: #00D4FF;
+  border: 1px solid #00D4FF;
+  padding: 0.6rem 1.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.terminal-btn-outline:hover {
+  background-color: rgba(0, 212, 255, 0.1);
+}
+
+.nav-scanning-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #00D4FF;
+  opacity: 0;
+  animation: scanLineAnim 4s ease-in-out infinite;
+  box-shadow: 0 0 8px #00D4FF;
+}
+
+@keyframes scanLineAnim {
+  0% { transform: scaleX(0); transform-origin: left; opacity: 0; }
+  10% { opacity: 1; }
+  40% { transform: scaleX(1); transform-origin: left; opacity: 1; }
+  40.1% { transform-origin: right; }
+  60% { transform: scaleX(1); transform-origin: right; opacity: 1; }
+  90% { transform: scaleX(0); transform-origin: right; opacity: 1; }
+  100% { opacity: 0; }
+}

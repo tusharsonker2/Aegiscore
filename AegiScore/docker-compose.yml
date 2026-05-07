@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: 
+      context: ./Frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URI=postgresql://postgres:postgres@db:5432/aegiscore
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-default_insecure_secret}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+    volumes:
+      - ./Server/Data:/app/Data
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: aegiscore
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
